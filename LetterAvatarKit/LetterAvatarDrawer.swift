@@ -14,17 +14,17 @@ public typealias DrawHandler = (
     _ letters: String,
     _ backgroundColor: CGColor,
     _ configuration: LetterAvatarBuilderConfiguration
-    )  -> UIImage?
+    ) -> UIImage?
 
 // MARK: Factory Method
-
+// swiftlint:disable identifier_name
 public func LetterAvatarDrawHandlerMake(_ type: DrawerType) -> DrawHandler {
     switch type {
     case .square:
         return makeSquareDrawer()
     }
 }
-
+// swiftlint:enable identifier_name
 // MARK: Private Methods
 
 private func makeSquareDrawer() -> DrawHandler {
