@@ -44,8 +44,8 @@ open class LetterAvatarBuilderConfiguration: NSObject {
     @objc(color)
     open var color: UIColor = LAKUIColorByRGB(red: 236, green: 240, blue: 241)
     /// The background colors of a letter-based avatar.
-    @objc(colors)
-    open var colors: [UIColor] = UIColor.colors
+    @objc(backgroundColors)
+    open var backgroundColors: [UIColor] = UIColor.colors
     @objc(drawHandler)
     open var drawHandler: DrawHandler = LetterAvatarDrawHandlerMake(.square)
 }

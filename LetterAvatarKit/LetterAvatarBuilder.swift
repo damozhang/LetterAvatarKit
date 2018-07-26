@@ -39,7 +39,7 @@ open class LetterAvatarBuilder: NSObject {
     /// - Returns: An instance of the UIImage class.
     @objc(makeAvatarWithConfiguration:)
     open func makeAvatar(withConfiguration configuration: LetterAvatarBuilderConfiguration) -> UIImage? {
-        let colors = configuration.colors
+        let colors = configuration.backgroundColors
         guard let username = configuration.username else {
             return drawAvatar(
                 letters: "NA",

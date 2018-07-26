@@ -97,7 +97,7 @@ class LetterAvatarBuilderTests: XCTestCase {
         let configuration = LetterAvatarBuilderConfiguration()
         configuration.username = "Avatar"
         configuration.single = true
-        configuration.colors = [ .red ]
+        configuration.backgroundColors = [ .red ]
         let avatarImage = LetterAvatarBuilder().makeAvatar(withConfiguration: configuration)
         XCTAssertNotNil(avatarImage)
     }
