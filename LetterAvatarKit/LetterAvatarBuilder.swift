@@ -119,10 +119,30 @@ open class LetterAvatarBuilder: NSObject {
         backgroundColor: CGColor,
         configuration: LetterAvatarBuilderConfiguration
         ) -> UIImage? {
-        return configuration.drawHandler(
-            letters,
-            backgroundColor,
-            configuration
+        UIGraphicsBeginImageContextWithOptions(
+            CGSize(
+                width: configuration.size.width,
+                height: configuration.size.height
+            ),
+            false,
+            UIScreen.main.scale
         )
+        if let context = UIGraphicsGetCurrentContext() {
+            return configuration.drawHandler(
+                DrawHandlerArgs(
+                    letters: letters,
+                    backgroundColor: backgroundColor,
+                    configuration: configuration,
+                    context: context,
+                    rect: CGRect(
+                        x: 0.0,
+                        y: 0.0,
+                        width: configuration.size.width,
+                        height: configuration.size.height
+                    )
+                )
+            )
+        }
+        return nil
     }
 }
