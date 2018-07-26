@@ -35,15 +35,17 @@ open class LetterAvatarBuilderConfiguration: NSObject {
     @objc(username)
     open var username: String?
     /// The flag that indicates of using single letter instead of two lettters.
-    @objc(singleLetter)
-    open var singleLetter: Bool = false
+    @objc(single)
+    open var single: Bool = false
     /// The letters font.
-    @objc(lettersFont)
-    open var lettersFont: UIFont = UIFont.systemFont(ofSize: 16.0)
+    @objc(font)
+    open var font: UIFont = UIFont.systemFont(ofSize: 16.0)
     /// The letters colors.
-    @objc(lettersColor)
-    open var lettersColor: UIColor = LAKUIColorByRGB(red: 236, green: 240, blue: 241)
+    @objc(color)
+    open var color: UIColor = LAKUIColorByRGB(red: 236, green: 240, blue: 241)
     /// The background colors of a letter-based avatar.
-    @objc(backgroundColors)
-    open var backgroundColors: [UIColor] = UIColor.colors
+    @objc(colors)
+    open var colors: [UIColor] = UIColor.colors
+    @objc(drawHandler)
+    open var drawHandler: DrawHandler = LetterAvatarDrawHandlerMake(.square)
 }

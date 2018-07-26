@@ -46,7 +46,7 @@ class UIImageLetterAvatarKitTests: XCTestCase {
     func testAvatarBuildSingleLetterFlag() {
         let configuration = LetterAvatarBuilderConfiguration()
         configuration.username = "Avatar Test"
-        configuration.singleLetter = true
+        configuration.single = true
         let avatarImage = UIImage.makeLetterAvatar(withConfiguration: configuration)
         XCTAssertNotNil(avatarImage)
         let testAvatarImage = UIImage(named: "LetterAvatarSingleLetterTestImage")
@@ -87,7 +87,7 @@ class UIImageLetterAvatarKitTests: XCTestCase {
     func testAvatarBuildWithOneWordUsernameAndSingleLetterFlag() {
         let configuration = LetterAvatarBuilderConfiguration()
         configuration.username = "Avatar"
-        configuration.singleLetter = true
+        configuration.single = true
         let avatarImage = UIImage.makeLetterAvatar(withConfiguration: configuration)
         XCTAssertNotNil(avatarImage)
         let testAvatarImage = UIImage(named: "LetterAvatarSingleLetterTestImage")

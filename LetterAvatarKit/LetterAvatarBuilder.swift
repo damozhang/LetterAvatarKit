@@ -39,19 +39,17 @@ open class LetterAvatarBuilder: NSObject {
     /// - Returns: An instance of the UIImage class.
     @objc(makeAvatarWithConfiguration:)
     open func makeAvatar(withConfiguration configuration: LetterAvatarBuilderConfiguration) -> UIImage? {
-        let colors = configuration.backgroundColors
+        let colors = configuration.colors
         guard let username = configuration.username else {
             return drawAvatar(
-                size: configuration.size,
                 letters: "NA",
-                lettersFont: configuration.lettersFont,
-                lettersColor: configuration.lettersColor,
-                backgroundColor: colors[0].cgColor
+                backgroundColor: colors[0].cgColor,
+                configuration: configuration
             )
         }
         let usernameInfo = obtainUsernameInfo(
             withUsername: username,
-            singleLetter: configuration.singleLetter
+            singleLetter: configuration.single
         )
         var colorIndex = 0
         if colors.count > 1 {
@@ -60,11 +58,9 @@ open class LetterAvatarBuilder: NSObject {
             colorIndex %= colors.count - 1
         }
         return drawAvatar(
-            size: configuration.size,
             letters: usernameInfo.letters,
-            lettersFont: configuration.lettersFont,
-            lettersColor: configuration.lettersColor,
-            backgroundColor: colors[colorIndex].cgColor
+            backgroundColor: colors[colorIndex].cgColor,
+            configuration: configuration
         )
     }
     
@@ -119,35 +115,14 @@ open class LetterAvatarBuilder: NSObject {
     }
     
     private func drawAvatar(
-        size: CGSize,
         letters: String,
-        lettersFont: UIFont,
-        lettersColor: UIColor,
-        backgroundColor: CGColor
+        backgroundColor: CGColor,
+        configuration: LetterAvatarBuilderConfiguration
         ) -> UIImage? {
-        let rect = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
-        UIGraphicsBeginImageContextWithOptions(size, true, UIScreen.main.scale)
-        if let context = UIGraphicsGetCurrentContext() {
-            context.setFillColor(backgroundColor)
-            context.fill(rect)
-            let style = NSParagraphStyle.default.mutableCopy()
-            let attributes = [
-                NSAttributedStringKey.paragraphStyle: style,
-                NSAttributedStringKey.font: lettersFont.withSize(min(size.height, size.width) / 2.0),
-                NSAttributedStringKey.foregroundColor: lettersColor
-            ]
-            let lettersSize = letters.size(withAttributes: attributes)
-            let lettersRect = CGRect(
-                x: (rect.size.width - lettersSize.width) / 2.0,
-                y: (rect.size.height - lettersSize.height) / 2.0,
-                width: lettersSize.width,
-                height: lettersSize.height
-            )
-            letters.draw(in: lettersRect, withAttributes: attributes)
-            let avatarImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return avatarImage
-        }
-        return nil
+        return configuration.drawHandler(
+            letters,
+            backgroundColor,
+            configuration
+        )
     }
 }
